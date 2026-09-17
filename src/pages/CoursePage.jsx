@@ -67,18 +67,24 @@ export function CoursePage() {
             <div className="text-xs text-muted">
               {course.moduleCount} módulos · {lessonCount} lições · {fmtDuration(course.durationMinutes)}
             </div>
-            {user && !course.enrolled ? (
-              <button onClick={enroll} disabled={enrolling} className="btn-primary">
-                {enrolling ? "Matriculando…" : "Matricular-se grátis"}
-              </button>
-            ) : (
-              <div className="w-48">
-                <div className="mb-1 flex justify-between text-xs text-muted">
-                  <span>Progresso</span>
-                  <span>{completedCount}/{lessonCount}</span>
+            {user ? (
+              !course.enrolled ? (
+                <button type="button" onClick={enroll} disabled={enrolling} className="btn-primary">
+                  {enrolling ? "Matriculando…" : "Matricular-se grátis"}
+                </button>
+              ) : (
+                <div className="w-48">
+                  <div className="mb-1 flex justify-between text-xs text-muted">
+                    <span>Progresso</span>
+                    <span>{completedCount}/{lessonCount}</span>
+                  </div>
+                  <ProgressBar percent={course.progressPercent} />
                 </div>
-                <ProgressBar percent={course.progressPercent} />
-              </div>
+              )
+            ) : (
+              <Link to="/entrar" className="btn-primary">
+                Entrar para começar
+              </Link>
             )}
           </div>
         </div>

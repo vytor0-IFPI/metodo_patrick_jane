@@ -9,7 +9,12 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("mj_token");
+    let token = null;
+    try {
+      token = localStorage.getItem("mj_token");
+    } catch {
+      token = null;
+    }
     if (!token) {
       setLoading(false);
       return;
@@ -18,14 +23,18 @@ export function AuthProvider({ children }) {
       .get("auth-me")
       .then((res) => setUser(res.user))
       .catch(() => {
-        localStorage.removeItem("mj_token");
+        try {
+          localStorage.removeItem("mj_token");
+        } catch {}
       })
       .finally(() => setLoading(false));
   }, []);
 
   const login = useCallback(async (email, password) => {
     const res = await api.post("auth-login", { email, password });
-    localStorage.setItem("mj_token", res.token);
+    try {
+      localStorage.setItem("mj_token", res.token);
+    } catch {}
     setUser(res.user);
     setAuthError(null);
     return res.user;
@@ -33,14 +42,18 @@ export function AuthProvider({ children }) {
 
   const register = useCallback(async (name, email, password) => {
     const res = await api.post("auth-register", { name, email, password });
-    localStorage.setItem("mj_token", res.token);
+    try {
+      localStorage.setItem("mj_token", res.token);
+    } catch {}
     setUser(res.user);
     setAuthError(null);
     return res.user;
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("mj_token");
+    try {
+      localStorage.removeItem("mj_token");
+    } catch {}
     setUser(null);
   }, []);
 

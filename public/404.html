@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O Método Patrick Jane — Redirecionando</title>
+    <script>
+      (function () {
+        var base = "/metodo_patrick_jane";
+        var path = window.location.pathname;
+        if (path.startsWith(base)) {
+          path = path.slice(base.length);
+        }
+        var search = window.location.search || "";
+        var hash = window.location.hash || "";
+        var target = base + "/#" + (path.startsWith("/") ? path : "/" + path) + search + hash;
+        window.location.replace(target);
+      })();
+    </script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #050507;
+        color: #e9e7e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        text-align: center;
+      }
+      a {
+        color: #c8a95c;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>Carregando O Método Patrick Jane…</p>
+      <p style="font-size: 12px; color: #86848f;">
+        Se você não for redirecionado automaticamente,
+        <a href="/metodo_patrick_jane/#/">clique aqui para acessar</a>.
+      </p>
+    </div>
+  </body>
+</html>

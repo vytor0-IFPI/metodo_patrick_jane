@@ -31,7 +31,7 @@ export function HomePage() {
   return (
     <div>
       <section className="grid-hairline relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-25 dark:opacity-15" style={{ backgroundImage: "url(/series/bg.jpg)" }} />
+        <div className="absolute inset-0 -z-10 bg-cover bg-center opacity-25 dark:opacity-15" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}series/bg.jpg)` }} />
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-24 md:grid-cols-2 md:items-center">
           <div>
             <p className="sys-label mb-4 text-gold">Curso online · Psicologia aplicada</p>

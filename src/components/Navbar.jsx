@@ -23,10 +23,10 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-lg">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold text-ink">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gold text-ink">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
@@ -56,7 +56,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           {user ? (
-            <div className="flex items-center gap-2">
+            <>
               <Link
                 to="/painel"
                 className="hidden items-center gap-2 rounded-full border border-line py-1 pl-1 pr-3 hover:border-gold sm:flex"
@@ -71,26 +71,39 @@ export function Navbar() {
                 <span className="max-w-[110px] truncate text-xs font-medium">{user.name}</span>
               </Link>
               <button
+                type="button"
                 onClick={handleLogout}
                 className="hidden rounded-lg border border-line px-3 py-1.5 text-xs font-medium hover:border-gold hover:text-gold md:block"
               >
                 Sair
               </button>
-              <button
-                onClick={() => setOpen(!open)}
-                className="grid h-9 w-9 place-items-center rounded-lg border border-line md:hidden"
-                aria-label="Menu"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 6h18M3 12h18M3 18h18" />
-                </svg>
-              </button>
-            </div>
+            </>
           ) : (
-            <Link to="/entrar" className="btn-primary !px-4 !py-2 text-sm">
-              Entrar
-            </Link>
+            <div className="hidden items-center gap-2 md:flex">
+              <Link to="/entrar" className="btn-ghost !px-3 !py-1.5 text-xs">
+                Entrar
+              </Link>
+              <Link to="/criar-conta" className="btn-primary !px-3 !py-1.5 text-xs">
+                Criar conta
+              </Link>
+            </div>
           )}
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-line md:hidden"
+            aria-label="Menu"
+          >
+            {open ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 6h18M3 12h18M3 18h18" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
 
@@ -110,14 +123,46 @@ export function Navbar() {
                 {l.label}
               </NavLink>
             ))}
+            <div className="my-1 border-t border-line" />
             {user ? (
-              <button onClick={handleLogout} className="rounded-lg px-3 py-2 text-left text-sm text-muted hover:text-gold">
-                Sair
-              </button>
+              <>
+                <NavLink
+                  to="/painel"
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `rounded-lg px-3 py-2 text-sm ${isActive ? "bg-soft text-gold" : "text-muted"}`
+                  }
+                >
+                  Painel
+                </NavLink>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    handleLogout();
+                  }}
+                  className="rounded-lg px-3 py-2 text-left text-sm text-muted hover:text-gold"
+                >
+                  Sair
+                </button>
+              </>
             ) : (
-              <NavLink to="/entrar" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm text-gold">
-                Entrar
-              </NavLink>
+              <div className="flex flex-col gap-2 pt-1">
+                <NavLink
+                  to="/entrar"
+                  onClick={() => setOpen(false)}
+                  className="btn-ghost w-full !py-2 text-center text-sm"
+                >
+                  Entrar
+                </NavLink>
+                <NavLink
+                  to="/criar-conta"
+                  onClick={() => setOpen(false)}
+                  className="btn-primary w-full !py-2 text-center text-sm"
+                >
+                  Criar conta grátis
+                </NavLink>
+              </div>
             )}
           </nav>
         </div>

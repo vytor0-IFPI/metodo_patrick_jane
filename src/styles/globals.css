@@ -50,12 +50,28 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   background: var(--bg);
   color: var(--body);
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
+}
+
+@supports (min-height: 100dvh) {
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}
+
+input, textarea, select {
+  font-size: 16px;
+}
+
+button, a {
+  touch-action: manipulation;
 }
 
 ::selection {
@@ -148,17 +164,7 @@ body {
   body,
   header,
   footer,
-  section,
-  div,
-  button,
-  a,
-  input,
-  span,
-  p,
-  h1,
-  h2,
-  h3,
-  li {
+  .panel {
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease,
