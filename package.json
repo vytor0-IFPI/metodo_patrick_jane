@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -t true"
+    "deploy": "gh-pages -d dist --dotfiles --nojekyll"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
